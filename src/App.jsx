@@ -1,25 +1,36 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 
 function App() {
-  const [array,setArray] = useState([])
-  const [value,setValue] = useState("")
+  const [array,setArray] = useState([]);
+  const [value,setValue] = useState("");
+  
 
   const handleClick = (e) =>{
 e.preventDefault();
-    array.push(value);
-    setValue("");
+array.push(value);
+setValue("");
+
   }
+  const remove =(txt) =>{
+    setArray(array.filter((n) => n !== txt));
+
+  }
+
   return (
     <div>
-      <form onSubmit={handleClick} >
-        <input value={value} onChange={e => setValue(e.target.value)} type="text" />
+      <form onSubmit={handleClick}>
+        <input onChange={e => setValue(e.target.value)} type="text" />
         <button>add</button>
-        {
-          array.map((text,id) => (
-            <p key={id}>{text}</p>
-          ))
-        }
       </form>
+      {
+        array.map((text,index) => (
+        <div key={index}>
+            <p>{text}</p>
+            <button onClick={() => remove(text) }>remove</button>
+        </div>
+        ))
+      }
     </div>
   )
 }
